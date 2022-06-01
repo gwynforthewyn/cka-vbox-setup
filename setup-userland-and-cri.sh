@@ -50,7 +50,7 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 apt-get update
-apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 # The containerd github instructions we're looking at and the kubernetes instructions we've forked from 
 # (https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd-systemd) seem to imply that 

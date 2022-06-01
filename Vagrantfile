@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vagrant.plugins = ["vagrant-vbguest"]
+  # config.vagrant.plugins = ["vagrant-vbguest"] #optional - leaving it in as it's nice, but the ubuntu vagrant box has guest tools preinstalled.
 
   # Kubernetes Master Server
   config.vm.define "control" do |control|

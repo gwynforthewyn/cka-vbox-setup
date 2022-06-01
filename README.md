@@ -1,6 +1,5 @@
 # Intended usage
 git clone https://github.com/gwynforthewyn/cka-vbox-setup.git
-vagrant plugin install --local #The vagrant plugin installation stuff seems broken if you rely on 'vagrant up', so handle it yourself
 vagrant up
 
 # PreReqs
