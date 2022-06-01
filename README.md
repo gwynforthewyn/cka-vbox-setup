@@ -1,3 +1,7 @@
+# Intended usage
+git clone this repo
+then vagrant up
+
 # PreReqs
 Install Virtualbox and Vagrant! I don't want to provide instructions as this is OS specific.
 
