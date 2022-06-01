@@ -1,4 +1,4 @@
-#!/bin/bash -elx
+#!/bin/bash -el
 # script that runs on both the worker and controller nodes. This means this is a superset of all needed
 # https://kubernetes.io/docs/setup/production-environment/container-runtimes
 if ! [ $USER = root ]
