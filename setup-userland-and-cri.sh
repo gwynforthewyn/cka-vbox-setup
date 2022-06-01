@@ -57,7 +57,7 @@ apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 # k8s is expecting a default config file but with one change.
 # In the   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options] section, SystemdCgroup should be true
 containerd config default > /etc/containerd/config.toml
-sed -i s/SystemdCgroup = false/SystemdCgroup = true/ /etc/containerd/config.toml
+sed -i "s/SystemdCgroup = false/SystemdCgroup = true/" /etc/containerd/config.toml
 
 # Apply changes
 systemctl restart containerd
