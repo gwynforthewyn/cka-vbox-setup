@@ -19,8 +19,8 @@ Vagrant.configure(2) do |config|
       v.cpus = 2
     end
 
-    # control.vm.provision "shell", path: "./setup-userland-and-cri.sh"
-    # control.vm.provision "shell", path: "./setup-kubernetes-tooling.sh"
+    control.vm.provision "shell", path: "./setup-userland-and-cri.sh"
+    control.vm.provision "shell", path: "./setup-kubernetes-tooling.sh"
     # We are using /etc/hosts for DNS resolution.
     # "If you are using VirtualBox (directly or via Vagrant), you will need to ensure that hostname -i returns a routable IP address. 
     # By default the first interface is connected to a non-routable host-only network. A work around is to modify /etc/hosts"
