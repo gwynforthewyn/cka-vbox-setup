@@ -1,6 +1,7 @@
 # Intended usage
-git clone this repo
-then vagrant up
+git clone https://github.com/gwynforthewyn/cka-vbox-setup.git
+vagrant plugin install --local #The vagrant plugin installation stuff seems broken if you rely on 'vagrant up', so handle it yourself
+vagrant up
 
 # PreReqs
 Install Virtualbox and Vagrant! I don't want to provide instructions as this is OS specific.
