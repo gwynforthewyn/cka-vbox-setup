@@ -32,9 +32,9 @@ Vagrant.configure(2) do |config|
     control.vm.provision "shell", inline: "echo 192.168.56.13 worker3.example.com >> /etc/hosts"
     control.vm.provision "shell", inline: "echo 192.168.56.14 worker4.example.com >> /etc/hosts"
     control.vm.provision "shell", inline: "echo 192.168.56.10 control.example.com >> /etc/hosts"
-    control.vm.provision "shell", inline: "kubeadm init --apiserver-advertise-address 192.168.56.10 --control-plane-endpoint 192.168.56.10"
+    control.vm.provision "shell", inline: "kubeadm init --apiserver-advertise-address 192.168.56.10 --control-plane-endpoint 192.168.56.10 --pod-network-cidr 10.10.0.0/20"
     control.vm.provision "shell", inline: "mkdir /home/vagrant/.kube && cp /etc/kubernetes/admin.conf /home/vagrant/.kube/config && chown -R vagrant:vagrant /home/vagrant/.kube && echo 'export KUBECONFIG=${HOME}/.kube/config'>> /home/vagrant/.bashrc"
-    # control.vm.provision "shell", path: "./setup-flannel.sh", privileged: false
+    control.vm.provision "shell", path: "./setup-flannel.sh", privileged: false
   end
 
   NodeCount = 3
@@ -58,6 +58,7 @@ Vagrant.configure(2) do |config|
       workernode.vm.provision "shell", inline: "echo 192.168.56.10 control.example.com >> /etc/hosts"
       workernode.vm.provision "shell", path: "./setup-userland-and-cri.sh"
       workernode.vm.provision "shell", path: "./setup-kubernetes-tooling.sh"
+      workernode.vm.provision "shell", inline: "echo Remember to initialise your worker node. The right command should have flow by in the control output."
     end
   end
   

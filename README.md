@@ -18,3 +18,11 @@ Containers all share a kernel, which means they all share IPTables, and k8s make
 
 ## Why Ubuntu Inside Virtualbox?
 Because Canonical offers [official Vagrant boxes](https://app.vagrantup.com/ubuntu/boxes/focal64) and I don't want to have a compromised system because some toolbag uploaded a whacky box to vagrant.
+
+## Flannel Installation
+Flannel is tied to the kubeadm init argument --pod-cidr. Details are in the setup-flannel.sh script. 
+
+It's not clear to me whether the instructions from flannel upstream to run flanneld on the host are actually necessary. If they are, compile-flanneld.sh will get you up and running.
+
+## Experimenting
+This is a sort of lab environment. If you want to mess around with flannel, or any pods or whatever, `kubectl delete -f <path/to/the/resource.yml>` will rescue you regularly.
