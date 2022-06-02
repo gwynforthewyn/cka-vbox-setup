@@ -1,13 +1,12 @@
 # Intended usage
-git clone https://github.com/gwynforthewyn/cka-vbox-setup.git
-vagrant up
+git clone https://github.com/gwynforthewyn/cka-vbox-setup.git && vagrant up
 
 ## post-vagrant-up notes
 1. You still need to install a network plugin
-1. Your correct `kubeadm init` command will have flown by in the control box's stdout. You can regenerate this with `vagrant ssh control` followed by `kubeadm token create --print-join-command`
+1. Your correct `kubeadm init` command  for the workers will have flown by in the control box's stdout. You can search history for the string 'control' to find the right stdout stream; you can regenerate the command with `vagrant ssh control` followed by `kubeadm token create --print-join-command` if you hate scrolling.
 
-# PreReqs
-Install Virtualbox and Vagrant! I don't want to provide instructions as this is OS specific.
+## PreReqs
+Install Virtualbox and Vagrant!
 
 [VirtualBox Instructions](https://www.virtualbox.org/wiki/Downloads) 
 [Vagrant Instructions](https://www.vagrantup.com)
@@ -19,5 +18,3 @@ Containers all share a kernel, which means they all share IPTables, and k8s make
 
 ## Why Ubuntu Inside Virtualbox?
 Because Canonical offers [official Vagrant boxes](https://app.vagrantup.com/ubuntu/boxes/focal64) and I don't want to have a compromised system because some toolbag uploaded a whacky box to vagrant.
-
-##

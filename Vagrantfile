@@ -56,7 +56,6 @@ Vagrant.configure(2) do |config|
       workernode.vm.provision "shell", inline: "echo 192.168.56.13 worker3.example.com >> /etc/hosts"
       workernode.vm.provision "shell", inline: "echo 192.168.56.14 worker4.example.com >> /etc/hosts"
       workernode.vm.provision "shell", inline: "echo 192.168.56.10 control.example.com >> /etc/hosts"
-      workernode.vm.provision "shell", inline: "mkdir /home/vagrant/.kube && cp /etc/kubernetes/admin.conf /home/vagrant/.kube/config && chown -R vagrant:vagrant /home/vagrant/.kube && echo 'export KUBECONFIG=${HOME}/.kube/config'>> /home/vagrant/.bashrc"
       workernode.vm.provision "shell", path: "./setup-userland-and-cri.sh"
       workernode.vm.provision "shell", path: "./setup-kubernetes-tooling.sh"
     end
