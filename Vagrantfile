@@ -19,6 +19,8 @@ Vagrant.configure(2) do |config|
       v.cpus = 2
     end
 
+    # It looks like the vagrant vm.hostname stanza isn't working effectively. Manually set hostname so that kubernetes' network inferences work correctly
+    control.vm.provision "shell", inline: "hostnamectl set-hostname control.example.com"
     control.vm.provision "shell", path: "./setup-userland-and-cri.sh"
     control.vm.provision "shell", path: "./setup-kubernetes-tooling.sh"
     # We are using /etc/hosts for DNS resolution.
@@ -30,8 +32,9 @@ Vagrant.configure(2) do |config|
     control.vm.provision "shell", inline: "echo 192.168.56.13 worker3.example.com >> /etc/hosts"
     control.vm.provision "shell", inline: "echo 192.168.56.14 worker4.example.com >> /etc/hosts"
     control.vm.provision "shell", inline: "echo 192.168.56.10 control.example.com >> /etc/hosts"
-    control.vm.provision "shell", inline: "kubeadm init --apiserver-advertise-address 192.168.56.10"
+    control.vm.provision "shell", inline: "kubeadm init --apiserver-advertise-address 192.168.56.10 --control-plane-endpoint 192.168.56.10"
     control.vm.provision "shell", inline: "mkdir /home/vagrant/.kube && cp /etc/kubernetes/admin.conf /home/vagrant/.kube/config && chown -R vagrant:vagrant /home/vagrant/.kube && echo 'export KUBECONFIG=${HOME}/.kube/config'>> /home/vagrant/.bashrc"
+    # control.vm.provision "shell", path: "./setup-flannel.sh", privileged: false
   end
 
   NodeCount = 3
@@ -47,11 +50,13 @@ Vagrant.configure(2) do |config|
         v.memory = 4096
         v.cpus = 2
       end
+      workernode.vm.provision "shell", inline: "hostnamectl set-hostname worker#{i}.example.com"
       workernode.vm.provision "shell", inline: "echo 192.168.56.11 worker1.example.com >> /etc/hosts"
       workernode.vm.provision "shell", inline: "echo 192.168.56.12 worker2.example.com >> /etc/hosts"
       workernode.vm.provision "shell", inline: "echo 192.168.56.13 worker3.example.com >> /etc/hosts"
       workernode.vm.provision "shell", inline: "echo 192.168.56.14 worker4.example.com >> /etc/hosts"
       workernode.vm.provision "shell", inline: "echo 192.168.56.10 control.example.com >> /etc/hosts"
+      workernode.vm.provision "shell", inline: "mkdir /home/vagrant/.kube && cp /etc/kubernetes/admin.conf /home/vagrant/.kube/config && chown -R vagrant:vagrant /home/vagrant/.kube && echo 'export KUBECONFIG=${HOME}/.kube/config'>> /home/vagrant/.bashrc"
       workernode.vm.provision "shell", path: "./setup-userland-and-cri.sh"
       workernode.vm.provision "shell", path: "./setup-kubernetes-tooling.sh"
     end
