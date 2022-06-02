@@ -28,5 +28,7 @@ cd /home/vagrant
 # If you use custom podCIDR (not 10.244.0.0/16) you first need to download the above manifest and modify the network to match your one.
 # - from https://github.com/flannel-io/flannel/blob/master/README.md 
 # The network assignment here matches the --pod-cidr in the Vagrantfile
-curl --silent https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml | sed 's/10.244.0.0\/16/10.10.0.0\/20/'  > flannel.yml
+# These virtualbox machines have multiple network interfaces, so we also need to add a hint to flanneld about which interface to use.
+# By coincidence, all of the vboxes have their internal network interfaces using the same device ID, enp0s8, so let's take advantage of that. 
+curl --silent https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml | sed 's/10.244.0.0\/16/10.10.0.0\/20/' | sed 's/--kube-subnet-mgr/--kube-subnet-mgr \n        - --iface\n        - enp0s8/'  > flannel.yml
 kubectl apply -f /home/vagrant/flannel.yml

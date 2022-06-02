@@ -26,3 +26,6 @@ It's not clear to me whether the instructions from flannel upstream to run flann
 
 ## Experimenting
 This is a sort of lab environment. If you want to mess around with flannel, or any pods or whatever, `kubectl delete -f <path/to/the/resource.yml>` will rescue you regularly.
+
+## Fragility
+There's an explicit reference to the virtualbox device ID for the internal network interface managing the host-only network in setup-flannel.sh. Do with it what you will.
